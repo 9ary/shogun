@@ -1,0 +1,7 @@
+{%- if comment -%}
+# {{ comment }}
+{% endif %}
+{%- for v in variables -%}
+{{ v }} = {{ variables[v] }}
+{% endfor -%}
+

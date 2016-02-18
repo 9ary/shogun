@@ -1,0 +1,5 @@
+# {{ rule }} {{ pathname }}
+{%- for o in objects %}
+build {{ o|subext(extout)|prepath(builddir) }}: {{ rule }} {{ o|prepath(srcdir) }}
+{%- endfor %}
+

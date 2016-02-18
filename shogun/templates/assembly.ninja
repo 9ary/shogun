@@ -1,0 +1,9 @@
+# {{ rule }} {{ path }}
+build {{ path }}: {{ rule }}
+{%- for o in objects %} $
+    {{ o|prepath(builddir) }}
+{%- endfor %}
+{%- for v in variables %}
+    {{ v }} = {{ variables[v] }}
+{%- endfor %}
+
