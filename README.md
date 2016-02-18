@@ -11,7 +11,8 @@ Building a simple C project. `configure.py`:
 import shogun
 
 obj = shogun.Objects("source/*.c", "cc", "o")
-exe = shogun.Assembly("$builddir/helloworld", "ccld", obj)
+exe = shogun.Assembly("$builddir/helloworld", "ccld", obj,
+        options = { "libs": "-lm" })
 
 shogun.build(obj, exe)
 ```
@@ -36,8 +37,26 @@ ldflags =
 
 default $builddir/helloworld
 ```
+This order is important: rules must be defined before targets and our extra
+variables as well as `default` depend on variables that are defined in
+`targets.ninja`.  
+
+You can also build a multi executable project easily:
+```python
+import shogun
+
+obj_common = shogun.Objects("common/*.c", "cc", "o")
+obj1 = shogun.Objects("src1/*.c", "cc", "o")
+obj2 = shogun.Objects("src2/*.c", "cc", "o")
+exe1 = shogun.Assembly("$builddir/exe1", "ccld", obj_common, obj1)
+exe2 = shogun.Assembly("$builddir/exe2", "ccld", obj_common, obj2)
+
+shogun.build(obj_common, obj1, obj2, exe1, exe2)
+```
 
 ## Usage
+See [Ninja's documentation](https://ninja-build.org/manual.html) to familiarize
+yourself with Ninja itself.  
 Shogun provides three simple classes to help build dependency trees and
 inserting variables into your build files:
 
@@ -53,7 +72,7 @@ substitute for the output file. All objects go to `$builddir`.
 Assembly(self, path, rule, *objects, options = {})
 ```
 Used for linking executables and packing libraries. `path` is the output file's
-path, `objects` are instances of `Objects` or `Assembly` and `option` are extra
+path, `objects` are instances of `Objects` or `Assembly` and `options` are extra
 variables to be passed to the rules, such as the libraries to link with.
 
 ```python
