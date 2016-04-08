@@ -103,3 +103,6 @@ build(*targets, out = "targets.ninja", builddir = None)
 to be generated, stored in `$srcdir` by default. If `builddir` isn't specified,
 it defaults to the current directory if it's not `$srcdir`, or `$srcdir/build`
 otherwise.
+
+## Distribution packages
+- [Arch Linux](https://aur.archlinux.org/packages/python-shogun/)
