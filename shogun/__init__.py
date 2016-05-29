@@ -45,7 +45,7 @@ class Assembly:
         self.options = options
 
     def objs(self):
-        return self.path
+        return [self.path]
 
     def targets(self):
         def objs():
