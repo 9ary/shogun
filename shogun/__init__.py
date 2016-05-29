@@ -31,7 +31,7 @@ class Objects:
 
     def objs(self):
         for f in self.files:
-            yield subext(f, self.extout)
+            yield prepath(subext(f, self.extout), "$builddir")
 
     def targets(self):
         return template_obj.render(objects = self.files,
