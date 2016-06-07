@@ -32,7 +32,7 @@ rule ccld
 include targets.ninja
 
 cc = clang
-cflags = -Wall -Wextra -pedantic -I$srcdir/include -O2 -pipe
+cflags = -Wall -Wextra -pedantic -Iinclude -O2 -pipe
 ldflags =
 
 default $builddir/helloworld
@@ -89,20 +89,12 @@ $builddir
 ```
 Output directory for the build.
 
-```
-$srcdir
-```
-Location of the source repository. This is immutably set to the location of the
-configuration script as it is expected to live at the root of the repo.
-
 ### Generating the build files
 ```python
 build(*targets, out = "targets.ninja", builddir = None)
 ```
 `targets` is a list of objects and assemblies to build. `out` is the build file
-to be generated, stored in `$srcdir` by default. If `builddir` isn't specified,
-it defaults to the current directory if it's not `$srcdir`, or `$srcdir/build`
-otherwise.
+to be generated. If `builddir` it defaults to `build`.
 
 ## Distribution packages
 - [Arch Linux](https://aur.archlinux.org/packages/python-shogun/)

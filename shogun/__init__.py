@@ -3,12 +3,9 @@ import sys, os
 from jinja2 import Environment, PackageLoader
 
 cd = os.path.abspath(os.path.curdir)
-srcdir = os.path.dirname(os.path.abspath(sys.argv[0]))
-os.chdir(srcdir)
 
 jinja = Environment(loader = PackageLoader(__name__, "templates"))
 jinja.globals["builddir"] = "$builddir"
-jinja.globals["srcdir"] = "$srcdir"
 
 def subext(f, ext):
     return os.path.splitext(f)[0] + "." + ext
@@ -65,15 +62,10 @@ class Variables:
         return template_vars.render(variables = self.variables, comment = self.comment)
 
 def build(*targets, out = "targets.ninja", builddir = None):
-    out = os.path.join(srcdir, out)
     if builddir is None:
-        if cd == srcdir:
-            builddir = os.path.join(srcdir, "build")
-        else:
-            builddir = cd
+        builddir = "build"
 
-    locations = Variables(comment = "Asset and output locations",
-        srcdir = srcdir, builddir = builddir)
+    locations = Variables(comment = "Asset and output locations", builddir = builddir)
 
     with open(out, "w") as fd:
         for t in (locations,) + targets:
