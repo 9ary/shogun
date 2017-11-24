@@ -9,7 +9,7 @@ setup(
     package_data = { "": ["templates/*"] },
     install_requires = list(open("requirements.txt")),
     author = """Dan "Streetwalrus" Elkouby""",
-    author_email = "streetwalrus@codewalr.us",
+    author_email = "streetwalkermc@gmail.com",
     description = "A dead simple build system based on Ninja",
     keywords = "ninja build c c++",
     license = "MIT",
